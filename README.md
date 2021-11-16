@@ -1,8 +1,6 @@
 # Tasks Service Every Back-End
 A REST API for tasks management.
 
-[[_TOC_]]
-
 # Installation
 - Start docker on the host machine
 - On the root folder run the following command to start the containers:
