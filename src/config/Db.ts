@@ -25,4 +25,4 @@ export const connectDb = async () => {
 
 export const closeDb = async () => {
   return await getConnection().close();
-}
+};
