@@ -4,6 +4,7 @@ import { config as envConfig } from 'dotenv';
 import { connectDb } from '@config/Db';
 import { UserRoutes } from '@routes/UserRoutes';
 import { AuthRoutes } from '@routes/AuthRoutes';
+import { TaskRoutes } from '@routes/TaskRoutes';
 
 envConfig();
 
@@ -16,6 +17,7 @@ const main = async () => {
     app.listen(process.env.SERVER_PORT);
     app.use('', UserRoutes());
     app.use('', AuthRoutes());
+    app.use('', TaskRoutes());
     console.log(
       `Express server has started on port ${process.env.SERVER_PORT}`
     );

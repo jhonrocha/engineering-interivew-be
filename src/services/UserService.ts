@@ -5,15 +5,19 @@ export class UserService {
   private userRepository = getRepository(User);
 
   getAll = async () => {
-    return this.userRepository.find();
+    return this.userRepository.find({
+      relations: ['tasks']
+    });
   };
 
   getById = async (id?: string) => {
-    return this.userRepository.findOne(id);
+    return this.userRepository.findOne(id, {
+      relations: ['tasks']
+    });
   };
 
-  getByUsername = (username: string) => {
-    return this.userRepository.findOne({ username });
+  getByUsername = async (username: string) => {
+   return this.userRepository.findOne({ username });
   };
 
   getLogin = (username: string) => {

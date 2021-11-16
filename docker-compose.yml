@@ -1,9 +1,40 @@
 version: '3'
 services:
-
-  mysql:
-    image: "mysql"
-    ports:
-      - "3306:3306"
+  mysql_db:
+    container_name: ev_mysql
+    image: mysql
+    # command: --default-authentication-plugin=mysql_native_password
+    restart: always
     env_file: .env
+    ports:
+      - 3306:3306
 
+  phpmyadmin:
+    container_name: ev_admin
+    depends_on:
+      - mysql_db
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8100:80
+    environment:
+      PMA_HOST: mysql_db
+      PMA_PORT: 3306
+
+  web:
+    container_name: ev_app
+    depends_on:
+      - mysql_db
+    image: node
+    env_file: .env
+    environment:
+      MYSQL_HOST: mysql_db
+    working_dir: /app
+    ports:
+      - 3000:3000
+      - 8300:8300
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    stdin_open: true
+    tty: true

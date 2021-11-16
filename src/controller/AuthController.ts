@@ -27,7 +27,7 @@ export class AuthController {
     }
   };
 
-  profile = async (req: Request, res: Response) => {
+  profile = async (_: Request, res: Response) => {
     try {
       const user = await this.userService.getById(res.locals.user.id);
       res.json(user);

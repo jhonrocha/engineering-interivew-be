@@ -1,4 +1,4 @@
-import { createConnection } from 'typeorm';
+import { createConnection, getConnection } from 'typeorm';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 
 export const connectDb = async () => {
@@ -21,4 +21,8 @@ export const connectDb = async () => {
     },
   };
   await createConnection(db);
+};
+
+export const closeDb = async () => {
+  return await getConnection().close();
 };

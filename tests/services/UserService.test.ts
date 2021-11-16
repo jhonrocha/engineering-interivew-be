@@ -1,4 +1,4 @@
-import { connectDb } from '@config/Db';
+import { closeDb, connectDb } from '@config/Db';
 import { User } from '@entity/User';
 import { UserService } from '@services/UserService';
 
@@ -14,6 +14,10 @@ describe('UserService Test', () => {
     await connectDb();
     userService = new UserService();
   });
+
+  afterAll(async () => {
+    await closeDb();
+  })
 
   test('Should exist', () => {
     expect(userService).toBeDefined();

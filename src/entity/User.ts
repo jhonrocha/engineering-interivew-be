@@ -4,9 +4,11 @@ import {
   Column,
   BeforeUpdate,
   BeforeInsert,
+  OneToMany,
 } from 'typeorm';
 import { hashSync } from 'bcrypt';
 import { Role } from './Roles';
+import { Task } from './Task';
 
 @Entity('users')
 export class User {
@@ -27,7 +29,7 @@ export class User {
     type: 'set',
     enum: Role,
     default: [Role.User],
-    select: false
+    select: false,
   })
   roles?: Role[];
 
@@ -42,4 +44,7 @@ export class User {
   hashPwd() {
     this.password = hashSync(this.password, 10);
   }
+
+  @OneToMany(() => Task, (task) => task.user)
+  tasks: Task[];
 }
