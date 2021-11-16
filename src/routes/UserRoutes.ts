@@ -1,8 +1,8 @@
-import UserController from '@controller/UserController';
+import { UserController } from '@controller/UserController';
 import { Router } from 'express';
-import { addSchema, validate } from '@middlewares/valid';
+import { validate } from '@middlewares/valid';
 import { authenticate } from '@middlewares/auth';
-import userDto from '@dto/userDto';
+import { createUser } from '@dto/userDto';
 import { Role } from '@entity/Roles';
 
 export const UserRoutes = (): Router => {
@@ -14,9 +14,7 @@ export const UserRoutes = (): Router => {
   router.get('/users/:username', authenticate([Role.Admin]), userController.one);
   router.get('/users', authenticate([Role.Admin]), userController.all);
   // Create User
-  addSchema(userDto, 'createUser');
-  router.post('/users', validate('createUser'), userController.save);
-
+  router.post('/users', validate(createUser), userController.save);
   // Delte User
   router.delete('/users/:id', authenticate([Role.Admin]), userController.remove);
 

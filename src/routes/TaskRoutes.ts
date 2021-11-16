@@ -1,24 +1,49 @@
-import TaskCon from '@controller/UserController';
+import { TaskController } from '@controller/TaskController';
 import { Router } from 'express';
-import { addSchema, validate } from '@middlewares/valid';
+import { validate } from '@middlewares/valid';
 import { authenticate } from '@middlewares/auth';
-import userDto from '@dto/userDto';
 import { Role } from '@entity/Roles';
+import { createTask } from '@dto/taskDto';
 
-export const UserRoutes = (): Router => {
+export const TaskRoutes = (): Router => {
   // Get Router
   const router = Router();
   // Add Controller
-  const userController = new UserController();
+  const taskController = new TaskController();
   // Get all or some user
-  router.get('/users/:username', authenticate([Role.Admin]), userController.one);
-  router.get('/users', authenticate([Role.Admin]), userController.all);
-  // Create User
-  addSchema(userDto, 'createUser');
-  router.post('/users', validate('createUser'), userController.save);
-
-  // Delte User
-  router.delete('/users/:id', authenticate([Role.Admin]), userController.remove);
+  router.post(
+    '/tasks/',
+    authenticate([Role.User]),
+    validate(createTask),
+    taskController.save
+  );
+  router.get(
+    '/tasks/',
+    authenticate([Role.User]),
+    taskController.getByUser
+  );
+  router.get(
+    '/tasks/:id',
+    authenticate([Role.User]),
+    taskController.get
+  );
+  router.put(
+    '/tasks/:id',
+    authenticate([Role.User]),
+    validate(createTask),
+    taskController.update
+  );
+  router.delete(
+    '/tasks/:id',
+    authenticate([Role.User]),
+    taskController.remove
+  );
+  router.post(
+    '/tasks/user/:userId',
+    authenticate([Role.Admin]),
+    validate(createTask),
+    taskController.saveTaskUser
+  );
 
   return router;
 };

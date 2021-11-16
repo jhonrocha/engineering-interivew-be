@@ -6,7 +6,7 @@ export class TaskService {
   private taskRepository = getRepository(Task);
 
   getById = (id?: number) => {
-    return this.taskRepository.findOne(id);
+    return this.taskRepository.findOne(id, { relations: ['user'] });
   };
 
   getByUser = async (user: User) => {
@@ -18,6 +18,10 @@ export class TaskService {
     const task = await this.taskRepository.save(create);
     delete task.user;
     return task;
+  };
+
+  update = (id: number, body: Task) => {
+    return this.taskRepository.update(id, body);
   };
 
   remove = (task: Task) => {

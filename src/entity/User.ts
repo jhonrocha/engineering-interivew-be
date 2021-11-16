@@ -45,6 +45,6 @@ export class User {
     this.password = hashSync(this.password, 10);
   }
 
-  // @OneToMany(() => Task, (task) => task.user)
+  @OneToMany(() => Task, (task) => task.user)
   tasks: Task[];
 }

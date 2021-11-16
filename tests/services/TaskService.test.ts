@@ -88,6 +88,7 @@ describe('TaskService Test', () => {
     expect(taskService.getById).toBeDefined();
     const resp = await taskService.getById(storeTask.id);
     expect(resp).toBeInstanceOf(Task);
+    delete resp.user;
     expect(resp).toStrictEqual(storeTask);
   });
 

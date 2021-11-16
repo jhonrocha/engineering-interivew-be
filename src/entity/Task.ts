@@ -7,10 +7,10 @@ import {
 import { User } from './User';
 
 export enum Status {
-  ToDo,
-  InProgress,
-  Done,
-  Archived,
+  ToDo = 'toDo',
+  InProgress = 'inProgress',
+  Done = 'done',
+  Archived = 'archived',
 }
 
 @Entity('tasks')

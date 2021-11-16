@@ -31,7 +31,7 @@ export class UserController {
       if (e.code == 'ER_DUP_ENTRY')
         return res
           .status(409)
-          .send({ message: `Username ${req.body.username} not available` });
+          .send({ message: `Username ${req.body.username} is not available` });
       else res.status(400).send(e);
     }
   };

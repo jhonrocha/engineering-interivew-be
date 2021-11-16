@@ -1,4 +1,4 @@
-export default {
+export const createUser = {
   type: 'object',
   properties: {
     firstName: { type: 'string' },

@@ -1,9 +1,9 @@
 import { AuthController } from '@controller/AuthController';
 import { Router } from 'express';
-import { addSchema, validate } from '@middlewares/valid';
 import loginDto from '@dto/loginDto';
 import { authenticate } from '@middlewares/auth';
 import { Role } from '@entity/Roles';
+import { validate } from '@middlewares/valid';
 
 export const AuthRoutes = (): Router => {
   // Create Controller
@@ -11,8 +11,7 @@ export const AuthRoutes = (): Router => {
   // Get Router
   const router = Router();
   // Login and validation
-  addSchema(loginDto, 'login');
-  router.post('/login', validate('login'), authController.login);
+  router.post('/login', validate(loginDto), authController.login);
   // Get Profile
   router.get(
     '/profile',
