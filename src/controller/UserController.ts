@@ -1,5 +1,5 @@
 import { UserService } from '@services/UserService';
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 export class UserController {
   private userService = new UserService();
@@ -46,5 +46,3 @@ export class UserController {
     }
   };
 }
-
-export default UserController;
